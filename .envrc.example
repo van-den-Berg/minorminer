@@ -1,0 +1,13 @@
+# Example .envrc for contributors
+# Usage:
+# 1) Create the venv used in CI / development:
+#      python -m venv .venv310
+# 2) Install dependencies:
+#      . .venv310/bin/activate && pip install -r requirements.txt
+# 3) Allow this .envrc locally (direnv must be installed):
+#      direnv allow
+
+# Source the local venv when present (kept as example so users can copy/modify)
+if [ -f .venv310/bin/activate ]; then
+    source .venv310/bin/activate
+fi

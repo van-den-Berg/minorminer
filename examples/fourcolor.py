@@ -50,7 +50,7 @@ from past.builtins import xrange
 import networkx as nx
 import dwave_networkx as dnx
 from minorminer import find_embedding
-from time import clock
+import time
 
 
 def graph_coloring_qubo(graph, k):
@@ -227,21 +227,21 @@ if __name__ == "__main__":
 
     # for a basis of comparison, let's try to embed this without the quotient
     graph4 = graph_coloring_qubo(graph, 4)
-    c = clock()
+    c = time.perf_counter()
     emb = find_embedding(graph4.edges(), H.edges(),
                          verbose=0, chainlength_patience=30)
     try:
-        print("raw embedding %d seconds, " % (clock() - c), end='')
+        print("raw embedding %.3f seconds, " % (time.perf_counter() - c), end='')
         cl = max(len(c) for c in emb.values())
         print("maximum chainlength %d" % cl)
-    except:
+    except Exception:
         print("failure")
 
     # we embed it using the block quotient,
-    c = clock()
+    c = time.perf_counter()
     emb = embed_with_quotient(graph, H, 16, 16, 4)
     # and then translate back to integer indices
-    print("quotient embedding %d seconds, maximum chainlength %d" % (clock() - c, max(len(c) for c in emb.values())))
+    print("quotient embedding %.3f seconds, maximum chainlength %d" % (time.perf_counter() - c, max(len(c) for c in emb.values())))
 
     # finally, we translate the embedding back to integer labels
     newemb = {v: [unlab[q] for q in c] for v, c in emb.items()}

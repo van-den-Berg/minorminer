@@ -1,1 +1,6 @@
 dwave_networkx
+tb-nightly
+future
+passlib
+matplotlib
+PyQt5
